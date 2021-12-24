@@ -2,53 +2,40 @@ package day5;
 
 import java.util.Iterator;
 
-public record Line(int x1, int y1, int x2, int y2) implements Iterable<int[]>{
+public record Line(int row1, int col1, int row2, int col2) implements Iterable<int[]> {
 
-	boolean isHorizontal() {
-		return x1 == x2 || y1 == y2;
+	boolean isHorizontalOrVertical() {
+		return col1 == col2 || row1 == row2;
 	}
 	
-	int col1() {
-		return x1;
-	}	
-	
-	int row1() {
-		return y1;
-	}
-	
-	int col2() {
-		return x2;
-	}
-	
-	int row2() {
-		return y2;
+	boolean isDiagonal() {
+		return !isHorizontalOrVertical();
 	}
 	
 	int[] deltas() {
-		int dr = row1() - row2(), dc = col1() - col2();
+		int dr = row2() - row1(), dc = col2() - col1();
 		if(dr != 0)
-			dr = dr / Math.abs(dr);
+			dr /= Math.abs(dr);
 		if(dc != 0)
-			dc = dc / Math.abs(dc);
+			dc /= Math.abs(dc);
 		return new int[] {dr, dc};
 	}
 	
 	@Override
 	public Iterator<int[]> iterator() {
 		return new Iterator<int[]>() {
-			int[] cur = {row1(), row2()}, delta = deltas();
+			int[] delta = deltas(), last = {row1() - delta[0], col1() - delta[1]};
 
 			@Override
 			public boolean hasNext() {
-				return !(cur[0] == row2() && cur[1] == col2());
+				return last == null || last[0] != row2() || last[1] != col2();
 			}
 
 			@Override
 			public int[] next() {
-				int[] next = {cur[0], cur[1]};
-				cur[0] += delta[0];
-				cur[1] += delta[1];
-				return next;
+				last[0] += delta[0];
+				last[1] += delta[1];
+				return new int[] {last[0], last[1]};
 			}
 			
 		};
