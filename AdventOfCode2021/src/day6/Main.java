@@ -2,19 +2,19 @@ package day6;
 
 import java.io.*;
 import java.util.*;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import utils.Regex;
 
 public class Main {
 	
-	static final Pattern COMMA = Pattern.compile(",");
 	static final int PART1_DAYS = 80, FISH_SPAWN_TIMER = 8;
 	static final long PART2_DAYS = 256;
 	static long[][] fishGrid = new long[(int) (PART2_DAYS + 1)][FISH_SPAWN_TIMER + 1];
 	
 	public static void main(String[] args) throws Throwable {
 		BufferedReader br = new BufferedReader(new FileReader("src/day6/input.txt"));
-		List<Integer> fish = COMMA.splitAsStream(br.readLine()).map(Integer::valueOf).collect(Collectors.toList());
+		List<Integer> fish = Regex.COMMA.splitAsStream(br.readLine()).map(Integer::valueOf).collect(Collectors.toList());
 		for(int r = 0; r < fishGrid.length; r++)
 			Arrays.fill(fishGrid[r], -1L);
 	
