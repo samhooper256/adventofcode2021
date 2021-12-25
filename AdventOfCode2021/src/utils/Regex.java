@@ -8,6 +8,8 @@ public final class Regex {
 		
 	}
 	
-	public static final Pattern COMMA = Pattern.compile(",");
+	public static final Pattern
+			COMMA = Pattern.compile(","),
+			SPACE = Pattern.compile(" ");
 	
 }
