@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 public class Main {
 	
 	static final Pattern COMMA = Pattern.compile(",");
-	static final int PART1_DAYS = 256, FISH_SPAWN_TIMER = 8;
-	static final long D = PART1_DAYS;
-	static long[][] fishGrid = new long[(int) (D + 1)][FISH_SPAWN_TIMER + 1];
+	static final int PART1_DAYS = 80, FISH_SPAWN_TIMER = 8;
+	static final long PART2_DAYS = 256;
+	static long[][] fishGrid = new long[(int) (PART2_DAYS + 1)][FISH_SPAWN_TIMER + 1];
 	
 	public static void main(String[] args) throws Throwable {
 		BufferedReader br = new BufferedReader(new FileReader("src/day6/input.txt"));
@@ -18,7 +18,7 @@ public class Main {
 		for(int r = 0; r < fishGrid.length; r++)
 			Arrays.fill(fishGrid[r], -1L);
 	
-//		System.out.println(part1(fish));
+		System.out.println(part1(fish));
 		System.out.println(part2(fish));
 	}
 	
@@ -39,14 +39,12 @@ public class Main {
 	
 	
 	static long fishSpawnedBy(final int k, final int d) {
-//		System.out.printf("[enter] fishSpawnedBy(k=%d, d=%d)%n", k, d);
-		if(k > FISH_SPAWN_TIMER || d >= D)
+		if(k > FISH_SPAWN_TIMER || d >= PART2_DAYS)
 			return 0L;
 		if(fishGrid[d][k] != -1)
 			return fishGrid[d][k];
-		long total = Math.max(0, (long) Math.ceil((D - d - k) / 7.0));
-//		System.out.printf("\tpre-total: %d%n", total);
-		for(int d2 = d + k + 1; d2 <= D; d2 += 7) {
+		long total = Math.max(0, (long) Math.ceil((PART2_DAYS - d - k) / 7.0));
+		for(int d2 = d + k + 1; d2 <= PART2_DAYS; d2 += 7) {
 			total += fishSpawnedBy(8, d2);
 		}
 		fishGrid[d][k] = total;
