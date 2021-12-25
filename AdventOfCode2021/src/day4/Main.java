@@ -13,6 +13,7 @@ public class Main {
 		List<String> lines = br.lines().toList();
 		calls = Arrays.stream(lines.get(0).split(",")).mapToInt(Integer::parseInt).toArray();
 		boards = new ArrayList<>();
+		@SuppressWarnings("unchecked")
 		List<Board>[] winners = new List[calls.length];
 		for(int i = 0; i < winners.length; i++)
 			winners[i] = new ArrayList<>();
