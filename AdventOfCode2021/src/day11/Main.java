@@ -2,7 +2,6 @@ package day11;
 
 import java.io.*;
 import java.util.Arrays;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 public class Main {
